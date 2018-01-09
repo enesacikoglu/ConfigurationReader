@@ -35,6 +35,8 @@ Run mvn clean install
 
 First run DynamicConfigurationService then run DynamicConfigurationClient using via "java -jar jarname.jar" or  on IDE.
 
+Service Run : mvn spring-boot:run
+
 Add/Remove/Edit Configurations on http://localhost:8080/ 
 
 ## Running Integration Test
