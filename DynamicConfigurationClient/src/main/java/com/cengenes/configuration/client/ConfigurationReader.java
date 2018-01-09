@@ -125,28 +125,6 @@ public class ConfigurationReader extends BaseServiceClient {
 
 	}
 
-	/**
-	 * Creates the target object for property bind operation. Not all types of
-	 * objects supported. Supported types {@link String}, {@link Integer},
-	 * {@link Double}, {@link Boolean}
-	 * 
-	 * @param clazz
-	 * @param value
-	 * @return Casted Object
-	 */
-	private static Object getInstanceForField(Class<?> clazz, String value) {
-		if (clazz == String.class) {
-			return value;
-		} else if (clazz == Integer.class) {
-			return Integer.parseInt(value);
-		} else if (clazz == Double.class) {
-			return Double.parseDouble(value);
-		} else if (clazz == Boolean.class) {
-			return Boolean.parseBoolean(value);
-		}
-		return null;
-	}
-
 	private List<ConfigurationDto> getApplicationConfigurationsByKey(String key) {
 		return cachedConfigurationList.parallelStream().filter(configuration -> configuration.getName().equals(key))
 				.filter(Objects::nonNull).collect(Collectors.toList());
@@ -180,5 +158,28 @@ public class ConfigurationReader extends BaseServiceClient {
 
 		return configurationResponse;
 	}
+	
+		/**
+	 * Creates the target object for property bind operation. Not all types of
+	 * objects supported. Supported types {@link String}, {@link Integer},
+	 * {@link Double}, {@link Boolean}
+	 * 
+	 * @param clazz
+	 * @param value
+	 * @return Casted Object
+	 */
+	private static Object getInstanceForField(Class<?> clazz, String value) {
+		if (clazz == String.class) {
+			return value;
+		} else if (clazz == Integer.class) {
+			return Integer.parseInt(value);
+		} else if (clazz == Double.class) {
+			return Double.parseDouble(value);
+		} else if (clazz == Boolean.class) {
+			return Boolean.parseBoolean(value);
+		}
+		return null;
+	}
+
 
 }
