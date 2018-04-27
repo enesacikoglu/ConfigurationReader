@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk:8-jre-alpine
 MAINTAINER enes.acikoglu@gmail.com
 ADD target/DynamicConfigurationService-*.jar dynservice.jar
 EXPOSE 9091
