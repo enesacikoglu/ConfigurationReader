@@ -1,0 +1,56 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: dynamic-service
+spec:
+ replicas: 3
+ template:
+  metadata:
+    labels:
+      app: dynamic-service
+  spec:
+   containers:
+   - name: dynamic-service
+     image: enesacikoglu/dynamic-service:1
+     imagePullPolicy: IfNotPresent
+     livenessProbe:
+       initialDelaySeconds: 30
+       httpGet:
+         path: /health
+         port: 9091
+     readinessProbe:
+       httpGet:
+          path: /health
+          port: 9091
+     ports:
+     - name: http
+       containerPort: 9091
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: dynamic-service
+spec:
+ selector:
+    app: dynamic-service
+ ports:
+  - port: 9091
+    name: http
+ type: NodePort
+---
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: dynamic-service
+spec:
+ rules:
+  - host: dynamic-service.kubernetes.local
+    http:
+     paths:
+      - path: /
+        backend:
+          serviceName: dynamic-service
+          servicePort: 9091
+---
+
+
